@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { createUser, findUserByEmail } from "../models/userModel.js";
+import { createUser, findUserByEmail, updatePasswordByEmail } from "../models/userModel.js";
 
 export const registerUser = async (req, res) => {
     try {
@@ -61,3 +61,30 @@ export const loginUser = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+export const resetPassowrd = async (req, res) => {
+    try {
+        const { email, newPassword } = req.body;
+
+        if (!email || !newPassword) {
+            return res.status(400).json({ message: 'Email and new password are required' });
+        }
+
+        if (newPassword.length < 6) {
+            return res.status(400).json({ message: 'Password must be at least 6 characters' });
+        }
+
+        const user = await findUserByEmail(email);
+        if (!user) {
+            return res.status(404).json({ message: 'No account found with this email' });
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await updatePasswordByEmail(email, hashedPassword);
+
+        res.json({ message: 'Password reset successful' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+}

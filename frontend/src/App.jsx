@@ -4,12 +4,14 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Expenses from './pages/Expenses';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
     <Routes>
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route 
         path='/' 
         element={

@@ -192,6 +192,9 @@ const Login = () => {
                                     placeholder="••••••••"
                                     className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                                 />
+                                <Link to="/forgot-password" className="text-xs text-indigo-600 hover:underline font-medium">
+                                    Forgot password?
+                                </Link>
                         </div>
 
                         <button
